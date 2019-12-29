@@ -31,6 +31,7 @@ public class Fly implements CommandExecutor {
 			 Player player = (Player) sender;
 			 if (player.getAllowFlight()) {
 				 player.setAllowFlight(false);
+				 sender.sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.Ended"));
 				 return true;
 			 }
 			 PlayerInventory playerInventory = player.getInventory(); 
