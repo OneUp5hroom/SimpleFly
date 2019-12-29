@@ -21,7 +21,7 @@ public class Fly implements CommandExecutor {
 	 public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		 if (label.equalsIgnoreCase("fly")) {
 			 if (!(sender.hasPermission("SimpleFly.use"))) {
-				 sender.sendMessage(ChatColor.DARK_RED + "You do not have permission do that!");
+				 sender.sendMessage(ChatColor.DARK_RED + "You do not have permission!");
 				 return true;
 			 }
 			 if (!(sender instanceof Player)) {
