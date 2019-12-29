@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import me.OneUp5hroom.SimpleFly.Main;
@@ -28,14 +30,23 @@ public class Fly implements CommandExecutor {
 				 sender.sendMessage(ChatColor.DARK_RED + "You are not a Player!");
 				 return true;
 			 }
+			 
+			 // initializing Variables
 			 Player player = (Player) sender;
+			 PlayerInventory playerInventory = player.getInventory(); 
+			 Material m = Material.getMaterial(plugin.getConfig().getString("fly-resource"));
+			 Boolean SafeFallBool = plugin.getConfig().getBoolean("safe-fall.Enabled");
+			 int SafeFallDuration = plugin.getConfig().getInt("safe-fall.Duration-Of-Potion-Effect-in-Seconds") * 20;
+			 
 			 if (player.getAllowFlight()) {
 				 player.setAllowFlight(false);
+				 if (SafeFallBool) {
+					 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING,SafeFallDuration,1), true);
+				 }
 				 sender.sendMessage(ChatColor.RED + plugin.getConfig().getString("messages.Ended"));
 				 return true;
 			 }
-			 PlayerInventory playerInventory = player.getInventory(); 
-			 Material m = Material.getMaterial(plugin.getConfig().getString("fly-resource"));
+
 			 int count = plugin.getConfig().getInt("consumption-count-per-interval");
 			 int interval = plugin.getConfig().getInt("interval-in-seconds") * 20;
 			 if (playerInventory.contains(m)) {
@@ -46,7 +57,7 @@ public class Fly implements CommandExecutor {
 			 }
 			 
 			 sender.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("messages.Approved"));
-			 BukkitTask task = new Watcher(player, m, count, plugin.getConfig().getString("messages.Ended")).runTaskTimer(Fly.plugin, interval, interval);
+			 BukkitTask task = new Watcher(player, m, count, plugin.getConfig().getString("messages.Ended"), SafeFallBool, SafeFallDuration).runTaskTimer(Fly.plugin, interval, interval);
 			 System.out.println(task);
 			 return true;
 		 }
