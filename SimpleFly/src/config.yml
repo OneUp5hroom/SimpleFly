@@ -1,0 +1,7 @@
+fly-resource: REDSTONE
+consumption-count-per-interval: 1
+interval-in-seconds: 5
+messages:
+  Approved: "Fly Enabled"
+  Ended: "Fly Disabled"
+  Denied: "You do not have any flight resources to burn..."

@@ -1,0 +1,10 @@
+main: me.OneUp5hroom.SimpleFly.Main
+name: SimpleFly
+version: 1.0
+author: OneUp5hroom
+
+commands:
+  Fly:
+    description: Allows a player to fly while consuming a resource.
+    permission: SimpleFly.use
+    usage: "Usage: /<command> "
